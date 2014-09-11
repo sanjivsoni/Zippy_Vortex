@@ -9,7 +9,7 @@
 
 // MAX SPEED
 #define SPEED_MAX 4095
-#define SPEED_CALIBRATE 768
+#define SPEED_CALIBRATE 786
 
 // Enable for white line on black background
 #define WHITE_ON_BLACK 0
@@ -88,7 +88,7 @@ void initializeBot()
 			turn('R');
 		if (i == 70)
 			turn('L');
-		
+
 		// Emitters on
 		if (WHITE_ON_BLACK == 1 && EMITTER_ON == 1)
 			qtrRC.calibrate(QTR_EMITTERS_ON);
@@ -254,7 +254,7 @@ void loop()
 		Serial.print(proportional);
 		Serial.println("  ");
 	}
-	
+
 
 	if (control > SPEED_MAX)
 		control = SPEED_MAX;
