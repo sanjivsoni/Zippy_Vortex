@@ -1,6 +1,6 @@
 
-#include <Motor\Motor.h>
-#include"QTRSensors_teensy3.h"
+#include <Motor.h>
+#include "QTRSensors_teensy3.h"
 
 // PID Constants
 #define KP	2.1
@@ -9,7 +9,7 @@
 
 // MAX SPEED
 #define SPEED_MAX 4095
-#define SPEED_CALIBRATE 100
+#define SPEED_CALIBRATE 768
 
 // Enable for white line on black background
 #define WHITE_ON_BLACK 0
@@ -24,8 +24,8 @@
 
 // Motor Driver Configurations
 #define MOTOR_DRIVER_PIN_STANDBY 7
-#define ENABLE_STANDBY digitalWrite(MOTOR_DRIVER_PIN_STANDBY,HIGH)
-#define DISABLE_STANDBY digitalWrite(MOTOR_DRIVER_PIN_STANDBY,LOW)
+#define ENABLE_STANDBY digitalWrite(MOTOR_DRIVER_PIN_STANDBY, HIGH)
+#define DISABLE_STANDBY digitalWrite(MOTOR_DRIVER_PIN_STANDBY, LOW)
 
 // Buzzer Settings
 #define BUZZER_ON digitalWrite(BUZZER_PIN, HIGH);
@@ -94,26 +94,25 @@ void initializeBot()
 			qtrRC.calibrate(QTR_EMITTERS_ON);
 
 		// Emitters off
-		else if (WHITE_ON_BLACK)
-			qtrRC.calibrate();
-
-		// Emitters off
 		else
 			qtrRC.calibrate();
 
 	}
 	//Display values serially
 
-	for (unsigned char i = 0; i < NUMBER_OF_SENSORS; i++)
+	if (DEBUG_MODE == 1)
 	{
-		Serial.print(qtrRC.calibratedMinimumOn[i]);
-		Serial.print(' ');
-	}
-	Serial.println(' ');
-	for (unsigned char i = 0; i < NUMBER_OF_SENSORS; i++)
-	{
-		Serial.print(qtrRC.calibratedMinimumOff[i]);
-		Serial.print(' ');
+		for (unsigned char i = 0; i < NUMBER_OF_SENSORS; i++)
+		{
+			Serial.print(qtrRC.calibratedMinimumOn[i]);
+			Serial.print(' ');
+		}
+		Serial.println(' ');
+		for (unsigned char i = 0; i < NUMBER_OF_SENSORS; i++)
+		{
+			Serial.print(qtrRC.calibratedMinimumOff[i]);
+			Serial.print(' ');
+		}
 	}
 }
 
@@ -131,7 +130,10 @@ void showSensorValues()
 
 void setup()
 {
-	Serial.begin(115200);
+	if (DEBUG_MODE == 1)
+	{
+		Serial.begin(115200);
+	}
 
 	//BLUETOOTH.begin(9600);
 
@@ -244,11 +246,15 @@ void loop()
 
 	control = proportional *KP + integral*KI + derivative*KD;
 
-	Serial.print("Control  ");
-	Serial.print(control);
-	Serial.print(" Position  ");
-	Serial.print(proportional);
-	Serial.println("  ");
+	if (DEBUG_MODE == 1)
+	{
+		Serial.print("Control  ");
+		Serial.print(control);
+		Serial.print(" Position  ");
+		Serial.print(proportional);
+		Serial.println("  ");
+	}
+	
 
 	if (control > SPEED_MAX)
 		control = SPEED_MAX;
