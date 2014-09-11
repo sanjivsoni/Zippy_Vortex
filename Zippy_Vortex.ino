@@ -233,7 +233,7 @@ void loop()
 	else
 		position_ = qtrRC.readLine(sensorValues);
 
-	runMappingMode();
+	//runMappingMode();
 
 	if (DEBUG_MODE == 1)
 		showSensorValues();
