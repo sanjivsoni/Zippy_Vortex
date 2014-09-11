@@ -20,7 +20,7 @@
 #define EMITTER_PIN 22
 #define TIMEOUT 2500
 
-#define BUZZER_PIN 3
+#define BUZZER_PIN 23
 
 // Motor Driver Configurations
 #define MOTOR_DRIVER_PIN_STANDBY 7
@@ -40,8 +40,8 @@ unsigned char sensorPins[] = { 14, 15, 16, 17, 18, 19, 20, 21 };
 unsigned short sensorValues[NUMBER_OF_SENSORS];
 
 unsigned char ROBOT_STATE = 0;
-String bluetoothBuffer;
-char bluetoothChar;
+//String bluetoothBuffer;
+//char bluetoothChar;
 
 // PID Variables
 float position_ = 0, proportional = 0, derivative = 0, integral = 0, lastProportional = 0;
@@ -89,7 +89,7 @@ void initializeBot()
 		if (i == 70)
 			turn('L');
 		
-		// EMitters on
+		// Emitters on
 		if (WHITE_ON_BLACK == 1 && EMITTER_ON == 1)
 			qtrRC.calibrate(QTR_EMITTERS_ON);
 
