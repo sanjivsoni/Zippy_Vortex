@@ -1,5 +1,5 @@
 
-#include "Motor.h"
+#include <Motor\Motor.h>
 #include"QTRSensors_teensy3.h"
 
 // PID Constants
@@ -9,7 +9,7 @@
 
 // MAX SPEED
 #define SPEED_MAX 4095
-#define SPEED_CALIBRATE 768
+#define SPEED_CALIBRATE 100
 
 // Enable for white line on black background
 #define WHITE_ON_BLACK 0
