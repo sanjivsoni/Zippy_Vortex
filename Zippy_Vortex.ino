@@ -98,8 +98,8 @@ void initializeBot()
 			qtrRC.calibrate();
 
 	}
-	//Display values serially
 
+	//Display values serially in debugMode for Debugging
 	if (DEBUG_MODE == 1)
 	{
 		for (unsigned char i = 0; i < NUMBER_OF_SENSORS; i++)
